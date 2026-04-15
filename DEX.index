@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISS Facility Journeys | Professional Experience View</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  --iss-dark:#030037;
+  --iss-blue:#153ac7;
+  --iss-azure:#0084ff;
+  --iss-sand:#decfb9;
+  --iss-cream:#f6f3ed;
+  --iss-line:#d9dce8;
+  --iss-text:#19213d;
+  --iss-muted:#6f7894;
+  --iss-white:#ffffff;
+  --iss-panel:#f8faff;
+  --iss-success:#eaf5ee;
+  --iss-warning:#fff4e8;
+  --shadow-soft:0 16px 40px rgba(3,0,55,.08);
+  --shadow-card:0 8px 24px rgba(21,58,199,.08);
+  --radius-xl:22px;
+  --radius-lg:16px;
+  --radius-md:12px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:linear-gradient(180deg,#f7f9fc 0%, #f3efe8 100%);
+  color:var(--iss-text);
+  min-height:100vh;
+}
+
+.header-shell{
+  background:
+    radial-gradient(circle at top right, rgba(0,132,255,.18), transparent 26%),
+    radial-gradient(circle at left center, rgba(222,207,185,.18), transparent 24%),
+    var(--iss-dark);
+  color:var(--iss-white);
+}
+
+header{
+  max-width:1380px;
+  margin:0 auto;
+  padding:28px 28px 42px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:28px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.brand-mark{
+  width:56px;
+  height:56px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--iss-azure),#2c57eb);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  letter-spacing:.08em;
+  box-shadow:0 10px 28px rgba(0,132,255,.28);
+}
+
+.brand-title{font-size:1.4rem;font-weight:700;line-height:1.1}
+.brand-sub{font-size:.92rem;color:rgba(255,255,255,.72);margin-top:4px}
+
+.header-pill{
+  padding:10px 16px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.8);
+  font-size:.82rem;
+  white-space:nowrap;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.25fr .95fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+.hero-copy,
+.hero-card{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  border-radius:24px;
+  padding:28px;
+  backdrop-filter:blur(8px);
+}
+
+.hero h1{
+  font-size:clamp(2rem,3.8vw,3rem);
+  line-height:1.02;
+  margin-bottom:16px;
+}
+
+.hero p{
+  color:rgba(255,255,255,.78);
+  line-height:1.7;
+  max-width:760px;
+}
+
+.hero-grid{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+
+.hero-stat{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:16px;
+}
+
+.hero-stat strong{display:block;font-size:1.2rem;margin-bottom:6px}
+.hero-stat span{font-size:.86rem;color:rgba(255,255,255,.72);line-height:1.5}
+
+.hero-card h2{font-size:1.05rem;margin-bottom:18px}
+.hero-card ul{list-style:none;display:grid;gap:14px}
+.hero-card li{
+  padding:14px 16px;
+  border-radius:16px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+}
+.hero-card li strong{display:block;font-size:.95rem;margin-bottom:4px}
+.hero-card li span{font-size:.88rem;color:rgba(255,255,255,.72);line-height:1.55}
+
+.main{
+  max-width:1380px;
+  margin:0 auto;
+  padding:28px;
+}
+
+.control-panel{
+  margin-top:-26px;
+  background:var(--iss-white);
+  border:1px solid rgba(21,58,199,.08);
+  border-radius:24px;
+  box-shadow:var(--shadow-soft);
+  padding:22px;
+  position:relative;
+  z-index:5;
+}
+
+.control-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.control-title h3{font-size:1.25rem;margin-bottom:6px}
+.control-title p{color:var(--iss-muted);line-height:1.6;max-width:840px}
+
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+
+.tab{
+  border:1px solid var(--iss-line);
+  background:#fbfcff;
+  border-radius:18px;
+  padding:18px 20px;
+  text-align:left;
+  cursor:pointer;
+  transition:.22s ease;
+}
+.tab:hover{transform:translateY(-2px);border-color:rgba(21,58,199,.28);box-shadow:var(--shadow-card)}
+.tab.active{
+  background:linear-gradient(180deg,#eff4ff 0%, #ffffff 100%);
+  border-color:rgba(21,58,199,.28);
+  box-shadow:var(--shadow-card);
+}
+.tab small{display:block;font-size:.78rem;color:var(--iss-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.tab strong{display:block;font-size:1rem;color:var(--iss-text);margin-bottom:8px}
+.tab span{display:block;font-size:.9rem;color:var(--iss-muted);line-height:1.55}
+
+.view{
+  margin-top:26px;
+  display:none;
+  grid-template-columns:minmax(0,1.45fr) minmax(320px,.8fr);
+  gap:22px;
+}
+.view.active{display:grid}
+
+.panel{
+  background:var(--iss-white);
+  border:1px solid rgba(25,33,61,.08);
+  border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-soft);
+}
+
+.panel-header{
+  padding:26px 26px 18px;
+  border-bottom:1px solid #edf0f6;
+}
+.panel-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border-radius:999px;
+  padding:7px 12px;
+  background:var(--iss-panel);
+  color:var(--iss-blue);
+  font-size:.78rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:14px;
+}
+.panel-header h2{font-size:1.55rem;margin-bottom:10px}
+.panel-header p{color:var(--iss-muted);line-height:1.7;max-width:920px}
+
+.journey{
+  padding:18px 18px 26px 18px;
+}
+
+.step{
+  display:grid;
+  grid-template-columns:92px minmax(0,1fr);
+  gap:14px;
+  align-items:stretch;
+}
+
+.step-rail{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:16px;
+}
+.step-index{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:2px solid var(--iss-azure);
+  background:linear-gradient(180deg,#fff,#eef5ff);
+  color:var(--iss-blue);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  box-shadow:0 6px 18px rgba(0,132,255,.12);
+  z-index:2;
+}
+.step-line{
+  position:absolute;
+  top:60px;
+  bottom:-10px;
+  width:2px;
+  background:linear-gradient(180deg,rgba(0,132,255,.18),rgba(222,207,185,.55));
+}
+.step:last-child .step-line{display:none}
+.step-phase{
+  margin-top:12px;
+  text-align:center;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--iss-muted);
+  font-weight:700;
+  line-height:1.4;
+}
+
+.step-card{
+  background:linear-gradient(180deg,#ffffff 0%, #fbfcff 100%);
+  border:1px solid #e9edf6;
+  border-radius:18px;
+  padding:18px 18px 18px 20px;
+  margin-bottom:16px;
+  transition:.22s ease;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.step-card::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(180deg,var(--iss-sand),var(--iss-azure));
+  opacity:.78;
+}
+.step-card:hover,
+.step-card.open{
+  border-color:rgba(21,58,199,.22);
+  box-shadow:var(--shadow-card);
+  transform:translateY(-1px);
+}
+
+.step-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+}
+.step-label{
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.06em;
+  color:var(--iss-blue);
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.step-title{font-size:1.08rem;font-weight:700;margin-bottom:8px}
+.step-summary{color:var(--iss-muted);line-height:1.65;font-size:.95rem}
+.step-toggle{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  border:1px solid #d9e4fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--iss-blue);
+  font-weight:700;
+  flex-shrink:0;
+  background:#f5f9ff;
+}
+.step-card.open .step-toggle{background:var(--iss-blue);color:#fff;border-color:var(--iss-blue)}
+
+.step-detail{display:none;padding-top:16px;margin-top:16px;border-top:1px solid #edf0f6}
+.step-card.open .step-detail{display:block}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.detail-box{
+  background:var(--iss-cream);
+  border:1px solid #ebe3d4;
+  border-radius:14px;
+  padding:14px;
+}
+.detail-box h4{font-size:.84rem;text-transform:uppercase;letter-spacing:.06em;color:var(--iss-muted);margin-bottom:10px}
+.detail-box ul{list-style:none;display:grid;gap:8px}
+.detail-box li{font-size:.9rem;line-height:1.55;color:var(--iss-text)}
+
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:600;
+  border:1px solid transparent;
+}
+.badge.service{background:#eef4ff;color:var(--iss-blue);border-color:#d6e3ff}
+.badge.tech{background:#f4f7fb;color:#394467;border-color:#dde4f2}
+.badge.value{background:var(--iss-success);color:#215638;border-color:#cfe7d6}
+.badge.risk{background:var(--iss-warning);color:#8a5a12;border-color:#f1dcc0}
+
+.side-panel{padding:24px}
+.side-panel h3{font-size:1.18rem;margin-bottom:16px}
+.side-stack{display:grid;gap:14px}
+.info-card{
+  border:1px solid #e9edf6;
+  border-radius:18px;
+  padding:18px;
+  background:linear-gradient(180deg,#ffffff,#fafcff);
+}
+.info-card h4{font-size:.94rem;margin-bottom:10px}
+.info-card p{font-size:.9rem;line-height:1.65;color:var(--iss-muted);margin-bottom:10px}
+.info-card ul{list-style:none;display:grid;gap:8px}
+.info-card li{font-size:.9rem;line-height:1.55}
+
+.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{
+  border-radius:16px;
+  padding:14px;
+  background:var(--iss-panel);
+  border:1px solid #dce8ff;
+}
+.metric strong{display:block;font-size:1rem;color:var(--iss-blue);margin-bottom:4px}
+.metric span{font-size:.84rem;color:var(--iss-muted);line-height:1.45}
+
+.legend{display:grid;gap:8px}
+.legend-row{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--iss-muted)}
+.legend-chip{width:12px;height:12px;border-radius:50%}
+.legend-chip.service{background:#dce8ff}
+.legend-chip.tech{background:#dfe6f4}
+.legend-chip.value{background:#d4ecd8}
+.legend-chip.risk{background:#f8dfc3}
+
+.footer-note{
+  margin-top:22px;
+  background:var(--iss-dark);
+  color:#fff;
+  border-radius:22px;
+  padding:22px 24px;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:20px;
+}
+.footer-note h3{margin-bottom:10px}
+.footer-note p{color:rgba(255,255,255,.76);line-height:1.7}
+.footer-note ul{list-style:none;display:grid;gap:8px}
+.footer-note li{color:rgba(255,255,255,.8);line-height:1.55}
+
+@media (max-width:1100px){
+  .hero,.view,.footer-note{grid-template-columns:1fr}
+}
+
+@media (max-width:840px){
+  .tabs{grid-template-columns:1fr}
+  .step{grid-template-columns:76px minmax(0,1fr)}
+  .detail-grid,.metric-grid,.hero-grid{grid-template-columns:1fr}
+  .topbar,.control-top{flex-direction:column;align-items:flex-start}
+}
+
+@media (max-width:560px){
+  header,.main{padding:18px}
+  .hero-copy,.hero-card,.control-panel,.side-panel,.panel-header{padding:18px}
+  .journey{padding:12px}
+  .step-card{padding:16px}
+}
+</style>
+</head>
+<body>
+  <div class="header-shell">
+    <header>
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-mark">ISS</div>
+          <div>
+            <div class="brand-title">Integrated Facility Journeys</div>
+            <div class="brand-sub">Professional interactive view of service delivery, technology enablement and on-site coordination</div>
+          </div>
+        </div>
+        <div class="header-pill">ISS Nederland | Experience, Operations and Technology</div>
+      </div>
+
+      <div class="hero">
+        <div class="hero-copy">
+          <h1>Drie perspectieven op één locatie, verbonden door één geïntegreerde dienstverlening.</h1>
+          <p>
+            Deze interactieve plaat laat zien hoe ISS de dagelijkse ervaring op locatie organiseert voor drie doelgroepen: de pandbewoner,
+            de bezoeker en de sitemanager. Per journey wordt zichtbaar hoe operationele dienstverlening, hospitality, gebouwbeheer,
+            data en technologie samenkomen in één consistente service-ervaring.
+          </p>
+          <div class="hero-grid">
+            <div class="hero-stat">
+              <strong>3 journeys</strong>
+              <span>Van gebruiker tot regisseur van de operatie.</span>
+            </div>
+            <div class="hero-stat">
+              <strong>1 service model</strong>
+              <span>Mens, proces en technologie in samenhang.</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Datagedreven</strong>
+              <span>Van signalering tot opvolging en rapportage.</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h2>Wat deze visual zichtbaar maakt</h2>
+          <ul>
+            <li>
+              <strong>De beleving op locatie</strong>
+              <span>Hoe ISS bijdraagt aan comfort, gastvrijheid, veiligheid, productiviteit en continuïteit.</span>
+            </li>
+            <li>
+              <strong>De technologie erachter</strong>
+              <span>Sensoren, meldingen, workflows, AI-ondersteuning, dashboards en integraties die de dienstverlening versterken.</span>
+            </li>
+            <li>
+              <strong>De regie van ISS</strong>
+              <span>Hoe de sitemanager teams, leveranciers, data en klantafspraken verbindt tot één bestuurbare operatie.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <main class="main">
+    <section class="control-panel">
+      <div class="control-top">
+        <div class="control-title">
+          <h3>Selecteer een journey</h3>
+          <p>
+            Elke journey toont de belangrijkste contactmomenten, de ISS-diensten die op dat moment relevant zijn,
+            de technologie die deze dienstverlening ondersteunt en de waarde die hiermee voor de klantlocatie wordt gerealiseerd.
+          </p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="resident" onclick="switchView('resident', this)">
+          <small>Journey 01</small>
+          <strong>Pandbewoner</strong>
+          <span>De medewerker die dagelijks op locatie werkt en de dienstverlening vooral ervaart via comfort, beschikbaarheid en gemak.</span>
+        </button>
+        <button class="tab" data-tab="visitor" onclick="switchView('visitor', this)">
+          <small>Journey 02</small>
+          <strong>Bezoeker</strong>
+          <span>De externe gast die de kwaliteit van de klantorganisatie mede ervaart via ontvangst, gastvrijheid en omgevingskwaliteit.</span>
+        </button>
+        <button class="tab" data-tab="manager" onclick="switchView('manager', this)">
+          <small>Journey 03</small>
+          <strong>Sitemanager</strong>
+          <span>De regisseur die teams, servicelevels, incidenten, klantcontact en rapportage in samenhang aanstuurt.</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="view active" id="resident">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-kicker">Pandbewoner journey</div>
+          <h2>De dagelijkse werkervaring op locatie</h2>
+          <p>
+            Voor de pandbewoner is goede facilitaire dienstverlening grotendeels onzichtbaar. Juist daarin zit de waarde: het gebouw is klaar,
+            de omgeving ondersteunt productiviteit en eventuele verstoringen worden snel en professioneel opgelost.
+          </p>
+        </div>
+        <div class="journey">
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">01</div>
+              <div class="step-phase">Voor start</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card open" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Locatie gereed voor gebruik</div>
+                  <div class="step-title">Voorbereiding van het gebouw vóór aankomst van medewerkers</div>
+                  <div class="step-summary">De werkdag begint voordat de eerste medewerker arriveert. ISS zorgt dat het gebouw schoon, veilig, toegankelijk en operationeel gereed is.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Schoonmaak en reset van werkplekken, publieke ruimten en sanitair</li>
+                      <li>Openingsrondes, veiligheidschecks en toegangsvoorbereiding</li>
+                      <li>Controle van klimaat, verlichting en gebouwstatus</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>IoT-sensoren voor bezetting, temperatuur en luchtkwaliteit</li>
+                      <li>Gebouwbeheersystemen voor klimaat- en lichtinstellingen</li>
+                      <li>Dashboards en automatische signalering van afwijkingen</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Cleaning, Security, Workplace readiness</span>
+                  <span class="badge tech">Technologie: IoT, BMS, rapportage</span>
+                  <span class="badge value">Waarde: direct productieve start van de dag</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">02</div>
+              <div class="step-phase">Aankomst</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Toegang en eerste beleving</div>
+                  <div class="step-title">Binnenkomst in een veilige, verzorgde en gastvrije omgeving</div>
+                  <div class="step-summary">De kwaliteit van de locatie wordt direct ervaren bij entree, routing, receptie en algemene uitstraling van het pand.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Receptiedienstverlening en front-of-house support</li>
+                      <li>Beheer van toegang, routing en publieke ruimten</li>
+                      <li>Onderhoud van representatieve entrees en ontvangstgebieden</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Digitale toegangscontrole en badgeprocessen</li>
+                      <li>Bezoekers- en ontvangstsystemen</li>
+                      <li>Datasturing op bezetting en piekmomenten in ontvangstzones</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Hospitality, Access, Reception</span>
+                  <span class="badge tech">Technologie: Check-in flows, occupancy insights</span>
+                  <span class="badge value">Waarde: veilige en professionele ontvangst</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">03</div>
+              <div class="step-phase">Werkdag</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Ondersteuning tijdens gebruik</div>
+                  <div class="step-title">Een werkplek die continu beschikbaar, schoon en comfortabel blijft</div>
+                  <div class="step-summary">Tijdens de werkdag draait ISS op de achtergrond mee: van klimaat en schoonmaak tot catering, post, voorraad en werkplekomgeving.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Werkplekonderhoud, day cleaning en sanitaire services</li>
+                      <li>Catering, pantry support en hospitality services</li>
+                      <li>Post-, voorraad- en supportprocessen op locatie</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Sensoriek voor gebruiksintensiteit van ruimten en assets</li>
+                      <li>Datagedreven schoonmaak en replenishment op basis van behoefte</li>
+                      <li>Integratie van meldingen, werkorders en mobiele taakuitvoering</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Cleaning, Catering, Workplace support</span>
+                  <span class="badge tech">Technologie: IoT, workorders, mobile execution</span>
+                  <span class="badge value">Waarde: hogere tevredenheid en continuïteit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">04</div>
+              <div class="step-phase">Onderbreking</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Service- en welzijnsmoment</div>
+                  <div class="step-title">Pauze, ontmoeting en catering als onderdeel van de werkervaring</div>
+                  <div class="step-summary">De kwaliteit van restaurant, pantry of koffievoorziening draagt direct bij aan welzijn, gastvrijheid en merkbeleving van de locatie.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Exploitatie van restaurant-, koffie- en pantryconcepten</li>
+                      <li>Onderhoud van sfeer, netheid en beschikbaarheid van voorzieningen</li>
+                      <li>Ondersteuning van duurzame en gezonde foodconcepten</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Verbruiksdata en voorraadsturing</li>
+                      <li>POS- en bestelprocessen voor efficiënte serviceverlening</li>
+                      <li>Inzicht in piekmomenten en capaciteitsbehoefte</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Catering, hospitality, waste services</span>
+                  <span class="badge tech">Technologie: POS, voorraaddata, capaciteitsinzichten</span>
+                  <span class="badge value">Waarde: welzijn, beleving en efficiëntie</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">05</div>
+              <div class="step-phase">Verstoring</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Moment of truth</div>
+                  <div class="step-title">Een melding, storing of afwijking wordt snel opgepakt en teruggekoppeld</div>
+                  <div class="step-summary">Wanneer iets niet werkt, wordt de kwaliteit van dienstverlening direct zichtbaar in snelheid, eigenaarschap en communicatie.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Servicedesk, on-site support en technische opvolging</li>
+                      <li>Coördinatie van leveranciers of interne specialisten</li>
+                      <li>Terugkoppeling naar gebruiker of klantvertegenwoordiger</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Meldingskanalen via QR, app, portal of receptie</li>
+                      <li>Workflow-engine voor triage, routing en werkorderopvolging</li>
+                      <li>AI-ondersteuning voor classificatie en prioritering</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Service desk, maintenance coordination</span>
+                  <span class="badge tech">Technologie: Ticketing, workflow, AI support</span>
+                  <span class="badge risk">Kritisch moment: snelheid en communicatie bepalen beleving</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">06</div>
+              <div class="step-phase">Afsluiting</div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Continuïteit naar morgen</div>
+                  <div class="step-title">Vertrek van medewerkers en voorbereiding van de volgende dag</div>
+                  <div class="step-summary">Na vertrek van medewerkers start de reset van de locatie: afsluiten, schoonmaken, energie-optimalisatie en voorbereiding op de nieuwe werkdag.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Afsluitrondes, security procedures en nachtelijke schoonmaak</li>
+                      <li>Planningsvoorbereiding voor dagdiensten en serviceverzoeken</li>
+                      <li>Controle op voorraden, ruimtes en prioriteiten voor de ochtend</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Energie- en gebouwsturing op basis van gebruik en planning</li>
+                      <li>Automatische rapportages en openstaande actielijsten</li>
+                      <li>Datavastlegging voor continue verbetering</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Close-down, cleaning reset, security</span>
+                  <span class="badge tech">Technologie: Automation, reporting, energy optimisation</span>
+                  <span class="badge value">Waarde: efficiënte en betrouwbare dagstart</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel side-panel">
+        <h3>Wat ISS hier levert</h3>
+        <div class="side-stack">
+          <div class="info-card">
+            <h4>Kernwaarde voor de pandbewoner</h4>
+            <p>De werkplek ondersteunt de gebruiker zonder dat deze actief hoeft na te denken over facilitaire processen.</p>
+            <div class="metric-grid">
+              <div class="metric"><strong>Comfort</strong><span>Klimaat, netheid en functionaliteit op orde</span></div>
+              <div class="metric"><strong>Gemak</strong><span>Snelle toegang en eenvoudige ondersteuning</span></div>
+              <div class="metric"><strong>Continuïteit</strong><span>Verstoringen vroegtijdig signaleren en oplossen</span></div>
+              <div class="metric"><strong>Welzijn</strong><span>Een omgeving die focus en productiviteit ondersteunt</span></div>
+            </div>
+          </div>
+          <div class="info-card">
+            <h4>Technologische bouwstenen</h4>
+            <ul>
+              <li>IoT en gebouwsensoren voor inzicht in gebruik en status</li>
+              <li>Werkorder- en meldingsprocessen voor snelle opvolging</li>
+              <li>Dashboards voor locatie-inzicht en operationele sturing</li>
+              <li>AI-ondersteuning voor triage, samenvatting en prioritering</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h4>Legenda</h4>
+            <div class="legend">
+              <div class="legend-row"><span class="legend-chip service"></span> ISS dienstverlening</div>
+              <div class="legend-row"><span class="legend-chip tech"></span> Technologie en procesondersteuning</div>
+              <div class="legend-row"><span class="legend-chip value"></span> Klantwaarde en prestatie</div>
+              <div class="legend-row"><span class="legend-chip risk"></span> Kritische service momenten</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="view" id="visitor">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-kicker">Bezoeker journey</div>
+          <h2>De merkbeleving van de klant begint bij de locatie</h2>
+          <p>
+            Voor de bezoeker is de locatie vaak het eerste tastbare contact met de klantorganisatie. ISS beïnvloedt deze ervaring direct via ontvangst,
+            netheid, routing, comfort en de kwaliteit van de ontmoetingsomgeving.
+          </p>
+        </div>
+        <div class="journey">
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">01</div>
+              <div class="step-phase">Voor aankomst</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card open" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Buitenruimte en bereikbaarheid</div>
+                  <div class="step-title">De eerste indruk ontstaat al vóór de entree</div>
+                  <div class="step-summary">Bereikbaarheid, routing, buitenruimte en parkeerervaring bepalen de eerste perceptie van professionaliteit en organisatiegraad.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Beheer van buitenruimte, routing en bezoekersparkeren</li>
+                      <li>Onderhoud van representativiteit, veiligheid en netheid</li>
+                      <li>Afstemming van logistieke en bezoekersstromen</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Toegangs- en terreinbeheer</li>
+                      <li>Bezoekersvoorregistratie en route-informatie</li>
+                      <li>Realtime inzicht in bezetting en aankomstpatronen</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Landscaping, access, arrival support</span>
+                  <span class="badge tech">Technologie: Visitor pre-registration, access control</span>
+                  <span class="badge value">Waarde: professionele eerste indruk</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">02</div>
+              <div class="step-phase">Ontvangst</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Front-of-house</div>
+                  <div class="step-title">Ontvangst, registratie en gastvrijheid in één consistente flow</div>
+                  <div class="step-summary">De receptie vertegenwoordigt niet alleen ISS, maar ook de klant. Warmte, professionaliteit en efficiëntie moeten hier samenkomen.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Receptiedienstverlening en hostmanship</li>
+                      <li>Bezoekersregistratie en uitgifte van toegangsmiddelen</li>
+                      <li>Afstemming met gastheer, security en meeting support</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Digitale check-in en notificatie van hosts</li>
+                      <li>Badge- en toegangssystemen</li>
+                      <li>Workflowsturing voor bezoekersafhandeling en compliance</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Reception, security, hospitality</span>
+                  <span class="badge tech">Technologie: Check-in, notifications, badge issuance</span>
+                  <span class="badge value">Waarde: veilige en warme ontvangst</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">03</div>
+              <div class="step-phase">Verblijf</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Wachten en bewegen door het gebouw</div>
+                  <div class="step-title">Sfeer, comfort en oriëntatie ondersteunen de totale merkbeleving</div>
+                  <div class="step-summary">Van lounge en sanitair tot bewegwijzering en algemene netheid: elke schakel draagt bij aan de kwaliteit van het bezoek.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Onderhoud van wachtruimten, lounge-omgevingen en publieke zones</li>
+                      <li>Beheer van netheid, beplanting, sanitaire voorzieningen en pantry's</li>
+                      <li>Ondersteuning van wayfinding en ruimtebeleving</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Gebruiksinzichten uit occupancy en cleaning triggers</li>
+                      <li>Digitale bewegwijzering en ruimte-informatie</li>
+                      <li>Monitoring van comfort, luchtkwaliteit en servicelevels</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Workplace services, cleaning, hospitality</span>
+                  <span class="badge tech">Technologie: Digital signage, occupancy, comfort monitoring</span>
+                  <span class="badge value">Waarde: consistente merk- en servicebeleving</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">04</div>
+              <div class="step-phase">Meeting</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Ontmoeting en ondersteuning</div>
+                  <div class="step-title">Vergaderruimten en hospitality moeten het gesprek mogelijk maken, niet verstoren</div>
+                  <div class="step-summary">Wanneer audiovisuele middelen, catering, klimaat en netheid goed geregeld zijn, ondersteunt de omgeving direct het doel van de afspraak.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Meeting room voorbereiding en set-up</li>
+                      <li>Catering en hospitality ondersteuning tijdens afspraken</li>
+                      <li>On-demand support bij verstoringen of extra verzoeken</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>AV-ondersteuning en beschikbaarheidscontrole</li>
+                      <li>Room booking en service-integratie</li>
+                      <li>Werkorderopvolging voor snelle interventie bij issues</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Meeting support, catering, service response</span>
+                  <span class="badge tech">Technologie: AV readiness, room workflows, support routing</span>
+                  <span class="badge value">Waarde: professionele klantinteractie zonder frictie</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">05</div>
+              <div class="step-phase">Vertrek</div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Laatste contactmoment</div>
+                  <div class="step-title">Uitchecken en vertrek als sluitstuk van de ervaring</div>
+                  <div class="step-summary">De laatste minuten van het bezoek zijn bepalend voor de herinnering. Een soepel en attent afscheid sluit de ervaring professioneel af.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Uitcheck, inname van toegangsmiddelen en begeleiding naar vertrek</li>
+                      <li>Laatste hospitality-interactie aan receptie of uitgang</li>
+                      <li>Herstel van ruimtes en voorbereiding voor volgende bezoekers</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Bezoekersafmelding en compliance-logging</li>
+                      <li>Synchronisatie met toegangs- en registratiesystemen</li>
+                      <li>Feedback en service data voor kwaliteitsanalyse</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Reception close-out, reset, guest support</span>
+                  <span class="badge tech">Technologie: Visitor logging, feedback, analytics</span>
+                  <span class="badge value">Waarde: sterke eindindruk en herhaalbare kwaliteit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel side-panel">
+        <h3>Wat ISS hier levert</h3>
+        <div class="side-stack">
+          <div class="info-card">
+            <h4>Kernwaarde voor de bezoeker</h4>
+            <p>De bezoeker ervaart via de locatie direct hoe professioneel, gastvrij en georganiseerd de klant is.</p>
+            <div class="metric-grid">
+              <div class="metric"><strong>Hospitality</strong><span>Warmte, aandacht en servicegedrag</span></div>
+              <div class="metric"><strong>Representativiteit</strong><span>Een verzorgde en betrouwbare omgeving</span></div>
+              <div class="metric"><strong>Veiligheid</strong><span>Geregistreerde en gecontroleerde toegang</span></div>
+              <div class="metric"><strong>Merkbeleving</strong><span>De locatie ondersteunt het verhaal van de klant</span></div>
+            </div>
+          </div>
+          <div class="info-card">
+            <h4>Technologische bouwstenen</h4>
+            <ul>
+              <li>Bezoekersregistratie en notificatie van hosts</li>
+              <li>Digitale toegang en compliance-logging</li>
+              <li>AV- en meeting supportprocessen</li>
+              <li>Analyse van bezettings- en servicepatronen</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h4>Operationele focus</h4>
+            <ul>
+              <li>Consistente ontvangstkwaliteit op piek- en dalmomenten</li>
+              <li>Naadloze samenwerking tussen receptie, security, cleaning en catering</li>
+              <li>Direct herstel wanneer een servicecontactmoment dreigt te falen</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="view" id="manager">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-kicker">Sitemanager journey</div>
+          <h2>Regie op dienstverlening, team, technologie en klantafspraken</h2>
+          <p>
+            De sitemanager verbindt mensen, processen, leveranciers, systemen en klantverwachtingen. Dit perspectief maakt zichtbaar hoe ISS dienstverlening
+            niet alleen uitvoert, maar ook actief stuurt, verbetert en verantwoordt.
+          </p>
+        </div>
+        <div class="journey">
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">01</div>
+              <div class="step-phase">Dagstart</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card open" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Operationele regie</div>
+                  <div class="step-title">Dagstart met inzicht in bezetting, meldingen, planning en prioriteiten</div>
+                  <div class="step-summary">De sitemanager start de dag niet alleen operationeel, maar datagedreven: welke services vragen aandacht, waar ontstaan risico's en wat vraagt afstemming met de klant?</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Dagbriefing voor cleaning, hospitality, catering en technische teams</li>
+                      <li>Controle van servicelevels, bezetting, openstaande issues en bezoekersplanning</li>
+                      <li>Herprioritering van taken op basis van actuele situatie op locatie</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Operationele dashboards en samengevoegde locatie-inzichten</li>
+                      <li>AI-ondersteunde samenvatting van meldingen, risico's en aandachtspunten</li>
+                      <li>Integraties met planning, werkorders en locatiegegevens</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Site management, daily control, performance oversight</span>
+                  <span class="badge tech">Technologie: Dashboards, AI briefing, integrated operations view</span>
+                  <span class="badge value">Waarde: sneller prioriteren en beter sturen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">02</div>
+              <div class="step-phase">Validatie</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Fysieke controle</div>
+                  <div class="step-title">Rondes op locatie om data en praktijk met elkaar te verbinden</div>
+                  <div class="step-summary">De sitemanager toetst of de locatie presteert zoals dashboards aangeven en of de beleving op de vloer overeenkomt met de rapportage.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Kwaliteitscontroles in publieke ruimten, sanitair, pantry's en meeting areas</li>
+                      <li>Check op uitvoering van werkzaamheden en beschikbaarheid van teams</li>
+                      <li>Validatie van klachten, afwijkingen en preventieve acties</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Mobiele checklists, auditflows en digitale kwaliteitsregistratie</li>
+                      <li>Sensorinzichten als input voor inspecties en prioriteiten</li>
+                      <li>Realtime status van taken, assets en uitzonderingen</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Quality control, supervisory rounds</span>
+                  <span class="badge tech">Technologie: Mobile audits, sensor insights, task status</span>
+                  <span class="badge value">Waarde: proactieve kwaliteitsborging</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">03</div>
+              <div class="step-phase">Aansturing</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Capaciteit en uitvoering</div>
+                  <div class="step-title">Taken verdelen, teams aansturen en werkzaamheden dynamisch bijstellen</div>
+                  <div class="step-summary">De operatie vraagt continue afstemming tussen prioriteit, capaciteit, afspraken met de klant en actuele verstoringen op locatie.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Aansturing van cleaning, catering, hospitality en onderhoudsteams</li>
+                      <li>Afstemming met leveranciers en specialisten waar nodig</li>
+                      <li>Herplanning van werk op basis van bezetting, events of incidenten</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Workforce planning en taakdistributie</li>
+                      <li>Automatische werkorders en prioriteitssuggesties</li>
+                      <li>Mobiele notificaties en statusupdates vanuit de operatie</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Workforce coordination, execution management</span>
+                  <span class="badge tech">Technologie: WFM, workorders, mobile tasking</span>
+                  <span class="badge value">Waarde: efficiëntere inzet van capaciteit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">04</div>
+              <div class="step-phase">Relatie</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Klantdialoog</div>
+                  <div class="step-title">Serviceprestaties vertalen naar betekenisvolle klantgesprekken</div>
+                  <div class="step-summary">ISS levert niet alleen uit, maar maakt prestaties bespreekbaar: wat gaat goed, waar ontstaat frictie en welke verbeteringen zijn nodig voor de klantlocatie?</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Afstemming met facility manager of klantvertegenwoordiger</li>
+                      <li>Bespreking van KPI's, klachten, risico's en verbetermaatregelen</li>
+                      <li>Vertaling van operationele data naar service- en businessimpact</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Rapportages, dashboards en trendanalyse</li>
+                      <li>Samenvatting van klantfeedback, serviceverzoeken en incidenthistorie</li>
+                      <li>Datasturing op SLA, volumes en responstijden</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Client management, reporting, improvement planning</span>
+                  <span class="badge tech">Technologie: KPI dashboards, analytics, feedback insights</span>
+                  <span class="badge value">Waarde: transparantie en partnership</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">05</div>
+              <div class="step-phase">Escalatie</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Coördinatie onder druk</div>
+                  <div class="step-title">Incidenten, storingen en afwijkingen gecontroleerd afhandelen</div>
+                  <div class="step-summary">Bij escalaties wordt de rol van ISS als regisseur het meest zichtbaar: snelheid, structuur, eigenaarschap en communicatie moeten direct samenkomen.</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Coördinatie van technische, operationele en veiligheidsprocessen</li>
+                      <li>Communicatie met klant, teams, leveranciers en management</li>
+                      <li>Borging van escalatieprocedures en follow-up na incidenten</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Escalatieflows, prioriteitsrouting en incidentregistratie</li>
+                      <li>Geautomatiseerde notificaties en audit trail</li>
+                      <li>AI-ondersteuning voor samenvattingen en vervolgstappen</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Incident coordination, stakeholder communication</span>
+                  <span class="badge tech">Technologie: Escalation workflows, alerts, AI summarisation</span>
+                  <span class="badge risk">Kritisch moment: regie en vertrouwen worden hier bewezen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-rail">
+              <div class="step-index">06</div>
+              <div class="step-phase">Verantwoording</div>
+            </div>
+            <div class="step-card" onclick="toggleStep(this)">
+              <div class="step-top">
+                <div>
+                  <div class="step-label">Afronding en verbetering</div>
+                  <div class="step-title">Dagafsluiting, rapportage en voorbereiding van de volgende cyclus</div>
+                  <div class="step-summary">De dag eindigt met inzicht: wat is afgerond, waar zitten open acties en welke lessen of trends moeten worden meegenomen naar morgen of naar het klantoverleg?</div>
+                </div>
+                <div class="step-toggle">+</div>
+              </div>
+              <div class="step-detail">
+                <div class="detail-grid">
+                  <div class="detail-box">
+                    <h4>ISS dienstverlening</h4>
+                    <ul>
+                      <li>Dagrapportage, review van open issues en opvolgacties</li>
+                      <li>Voorbereiding van planningen, resources en prioriteiten</li>
+                      <li>Continue verbetering op basis van operationele feedback</li>
+                    </ul>
+                  </div>
+                  <div class="detail-box">
+                    <h4>Technologie en ondersteuning</h4>
+                    <ul>
+                      <li>Automatische rapportages en actielijsten</li>
+                      <li>Analyse van trends, volumes en servicepatronen</li>
+                      <li>Historie en datavastlegging voor management en klantgesprekken</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="badge-row">
+                  <span class="badge service">Dienst: Reporting, continuous improvement, planning</span>
+                  <span class="badge tech">Technologie: Analytics, reporting, historical insight</span>
+                  <span class="badge value">Waarde: bestuurbare en lerende operatie</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel side-panel">
+        <h3>Wat ISS hier levert</h3>
+        <div class="side-stack">
+          <div class="info-card">
+            <h4>Kernwaarde voor de sitemanager</h4>
+            <p>De sitemanager krijgt één bestuurbaar beeld van service, kwaliteit, bezetting, risico's en klantverwachtingen.</p>
+            <div class="metric-grid">
+              <div class="metric"><strong>Regie</strong><span>Overzicht en prioritering over disciplines heen</span></div>
+              <div class="metric"><strong>Snelheid</strong><span>Korter van signaal naar actie</span></div>
+              <div class="metric"><strong>Transparantie</strong><span>Onderbouwde gesprekken met klant en teams</span></div>
+              <div class="metric"><strong>Verbetering</strong><span>Data gebruiken om dienstverlening te verfijnen</span></div>
+            </div>
+          </div>
+          <div class="info-card">
+            <h4>Technologische bouwstenen</h4>
+            <ul>
+              <li>Geïntegreerde dashboards met service-, bezettings- en kwaliteitsdata</li>
+              <li>AI-ondersteuning voor samenvattingen, prioritering en communicatie</li>
+              <li>Workflow- en escalatieprocessen voor gestructureerde opvolging</li>
+              <li>Rapportagemodules voor klantoverleggen en interne sturing</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h4>Bestuurlijke betekenis</h4>
+            <ul>
+              <li>Laat zien hoe technologie direct bijdraagt aan operationele kwaliteit</li>
+              <li>Maakt de ISS-rol zichtbaar als integrator van services en data</li>
+              <li>Onderbouwt hoe een locatie schaalbaar en bestuurbaar wordt gemaakt</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="footer-note">
+      <div>
+        <h3>Concept xx appplicaties xx technologie toevoegen</h3>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+<script>
+function switchView(viewId, button){
+  document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  button.classList.add('active');
+}
+
+function toggleStep(card){
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>
+
+
+
