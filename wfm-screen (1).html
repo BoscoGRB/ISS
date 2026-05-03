@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WFM — Workforce Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2ec;
+    --accent: #e8462a;
+    --mid: #6b6b78;
+    --light: #e2ddd6;
+    --chat-bg: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    grid-template-rows: auto 1fr;
+    overflow: hidden;
+  }
+
+  header {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .header-left { display: flex; align-items: baseline; gap: 16px; }
+
+  .logo-tag {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7fff7f;
+  }
+
+  .live-dot {
+    width: 8px; height: 8px;
+    background: #7fff7f;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .main {
+    padding: 36px 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .intro-block { max-width: 680px; }
+
+  .kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .intro-block h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .intro-block p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--mid);
+    max-width: 560px;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .pillar {
+    background: white;
+    border: 1.5px solid var(--light);
+    border-radius: 12px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .pillar:hover::before { transform: scaleX(1); }
+  .pillar:hover { border-color: var(--accent); }
+
+  .pillar-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .pillar h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .pillar p { font-size: 13px; line-height: 1.6; color: var(--mid); }
+
+  .agenda {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 24px 28px;
+    color: var(--paper);
+  }
+
+  .agenda h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .agenda-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .agenda-item { display: flex; flex-direction: column; gap: 4px; }
+  .agenda-time { font-size: 11px; color: var(--mid); letter-spacing: 0.05em; }
+  .agenda-label { font-size: 13px; font-weight: 500; line-height: 1.4; }
+
+  /* CHAT SIDEBAR */
+  .chat-sidebar {
+    background: var(--chat-bg);
+    border-left: 1.5px solid var(--light);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chat-header {
+    padding: 20px 20px 14px;
+    border-bottom: 1.5px solid var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chat-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .chat-count {
+    font-size: 11px;
+    background: var(--accent);
+    color: white;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-weight: 600;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--light); border-radius: 2px; }
+
+  .message { animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .message-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .message-avatar {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .message-name { font-size: 11px; font-weight: 600; color: var(--ink); }
+  .message-time { font-size: 10px; color: var(--mid); margin-left: auto; }
+
+  .message-bubble {
+    background: var(--paper);
+    border-radius: 4px 12px 12px 12px;
+    padding: 10px 13px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+  }
+
+  .chat-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--mid);
+    text-align: center;
+    padding: 20px;
+  }
+
+  .chat-empty-icon { font-size: 32px; opacity: 0.4; }
+  .chat-empty p { font-size: 12px; line-height: 1.5; }
+
+  .qr-footer {
+    border-top: 1.5px solid var(--light);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--paper);
+  }
+
+  .qr-placeholder {
+    width: 64px; height: 64px;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: white;
+  }
+
+  .qr-placeholder svg { width: 48px; height: 48px; }
+  .qr-info p { font-size: 11px; color: var(--mid); line-height: 1.5; }
+  .qr-info strong { font-size: 13px; font-weight: 700; color: var(--ink); display: block; margin-bottom: 2px; }
+
+  .connection-status {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .status-connecting { background: #fff3cd; color: #856404; }
+  .status-connected { background: #d1fae5; color: #065f46; }
+  .status-error { background: #fee2e2; color: #991b1b; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span class="logo-tag">ISS</span>
+    <h1>Workforce Management — WFM</h1>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span class="connection-status status-connecting" id="connStatus">Verbinden…</span>
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      Live sessie
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="intro-block">
+    <p class="kicker">Waar gaat deze sessie over</p>
+    <h2>Slimmer plannen,<br>beter presteren.</h2>
+    <p>Workforce Management gaat over de juiste mensen, op de juiste plek, op het juiste moment. In deze sessie verkennen we hoe WFM bijdraagt aan operationele efficiëntie, medewerkertevredenheid en datagedreven sturing binnen ISS.</p>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <h3>Capaciteitsplanning</h3>
+      <p>Vraag en aanbod in balans brengen — van prognose tot rooster.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <h3>Real-time sturing</h3>
+      <p>Live inzicht in aanwezigheid, afwijkingen en bezetting op de vloer.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <h3>Data & rapportage</h3>
+      <p>Van cijfers naar inzicht — KPI's die écht sturen op resultaat.</p>
+    </div>
+  </div>
+
+  <div class="agenda">
+    <h3>Agenda van vandaag</h3>
+    <div class="agenda-items">
+      <div class="agenda-item">
+        <span class="agenda-time">13:00 – 13:15</span>
+        <span class="agenda-label">Introductie & context</span>
+      </div>
+      <div class="agenda-item">
+        <span class="agenda-time">13:15 – 13:40</span>
+        <span class="agenda-label">WFM in de praktijk</span>
+      </div>
+      <div class="agenda-item">
+        <span class="agenda-time">13:40 – 14:00</span>
+        <span class="agenda-label">Demo & use cases</span>
+      </div>
+      <div class="agenda-item">
+        <span class="agenda-time">14:00 – 14:15</span>
+        <span class="agenda-label">Q&A — stel je vraag!</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<aside class="chat-sidebar">
+  <div class="chat-header">
+    <span class="chat-title">💬 Live vragen</span>
+    <span class="chat-count" id="msgCount">0</span>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-empty" id="emptyState">
+      <div class="chat-empty-icon">📱</div>
+      <p>Scan de QR-code en stel je eerste vraag.<br>Die verschijnt hier live.</p>
+    </div>
+  </div>
+
+  <div class="qr-footer">
+    <div class="qr-placeholder">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="18" height="18" rx="2" fill="#0a0a0f"/>
+        <rect x="5" y="5" width="12" height="12" rx="1" fill="#f5f2ec"/>
+        <rect x="7" y="7" width="8" height="8" fill="#0a0a0f"/>
+        <rect x="28" y="2" width="18" height="18" rx="2" fill="#0a0a0f"/>
+        <rect x="31" y="5" width="12" height="12" rx="1" fill="#f5f2ec"/>
+        <rect x="33" y="7" width="8" height="8" fill="#0a0a0f"/>
+        <rect x="2" y="28" width="18" height="18" rx="2" fill="#0a0a0f"/>
+        <rect x="5" y="31" width="12" height="12" rx="1" fill="#f5f2ec"/>
+        <rect x="7" y="33" width="8" height="8" fill="#0a0a0f"/>
+        <rect x="28" y="28" width="4" height="4" fill="#0a0a0f"/>
+        <rect x="34" y="28" width="4" height="4" fill="#0a0a0f"/>
+        <rect x="40" y="28" width="6" height="4" fill="#0a0a0f"/>
+        <rect x="28" y="34" width="6" height="4" fill="#0a0a0f"/>
+        <rect x="36" y="34" width="4" height="4" fill="#0a0a0f"/>
+        <rect x="42" y="34" width="4" height="4" fill="#0a0a0f"/>
+        <rect x="28" y="40" width="4" height="6" fill="#0a0a0f"/>
+        <rect x="34" y="40" width="12" height="6" fill="#0a0a0f"/>
+      </svg>
+    </div>
+    <div class="qr-info">
+      <strong>Stel een vraag</strong>
+      <p>Scan de QR-code met je telefoon</p>
+    </div>
+  </div>
+</aside>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getDatabase, ref, onChildAdded, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDq0cXkAutSrNjBrfC_86HLpsX_H8ZRaJc",
+    authDomain: "managetomorrow-2cf72.firebaseapp.com",
+    projectId: "managetomorrow-2cf72",
+    storageBucket: "managetomorrow-2cf72.firebasestorage.app",
+    messagingSenderId: "285987060910",
+    appId: "1:285987060910:web:54b829f213f1ae35ff413f",
+    measurementId: "G-03M3Y19XG4",
+    databaseURL: "https://managetomorrow-2cf72-default-rtdb.europe-west1.firebasedatabase.app"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const statusEl = document.getElementById('connStatus');
+  const chatMessages = document.getElementById('chatMessages');
+  const msgCountEl = document.getElementById('msgCount');
+  let count = 0;
+
+  const colors = ['#e8462a','#153ac7','#0084ff','#030037','#6b3fa0','#2a7a5e'];
+
+  function getInitials(name) {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+  }
+
+  function getColor(name) {
+    let hash = 0;
+    for (let c of name) hash = c.charCodeAt(0) + hash * 31;
+    return colors[Math.abs(hash) % colors.length];
+  }
+
+  function formatTime(ts) {
+    const d = ts ? new Date(ts) : new Date();
+    return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  }
+
+  function addMessage(name, text, ts) {
+    const empty = document.getElementById('emptyState');
+    if (empty) empty.remove();
+
+    count++;
+    msgCountEl.textContent = count;
+
+    const msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = `
+      <div class="message-meta">
+        <div class="message-avatar" style="background:${getColor(name)}">${getInitials(name)}</div>
+        <span class="message-name">${name}</span>
+        <span class="message-time">${formatTime(ts)}</span>
+      </div>
+      <div class="message-bubble">${text}</div>
+    `;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Listen for new questions in Firebase
+  try {
+    const questionsRef = ref(db, 'wfm-questions');
+    onChildAdded(questionsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data && data.question) {
+        addMessage(data.name || 'Anoniem', data.question, data.timestamp);
+      }
+      statusEl.textContent = 'Verbonden ✓';
+      statusEl.className = 'connection-status status-connected';
+    });
+
+    // Mark as connected after short delay if no error
+    setTimeout(() => {
+      if (statusEl.textContent === 'Verbinden…') {
+        statusEl.textContent = 'Verbonden ✓';
+        statusEl.className = 'connection-status status-connected';
+      }
+    }, 2000);
+
+  } catch(e) {
+    statusEl.textContent = 'Verbindingsfout';
+    statusEl.className = 'connection-status status-error';
+    console.error(e);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>WFM — Stel je vraag</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f2ec;
+    --accent: #e8462a;
+    --mid: #6b6b78;
+    --light: #e2ddd6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-bar {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .top-bar .brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  .live-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7fff7f;
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    background: #7fff7f;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .content {
+    flex: 1;
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .intro h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .intro h1 em { font-style: normal; color: var(--accent); }
+
+  .intro p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--mid);
+  }
+
+  .quick-topics h3 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .topics-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .topic-chip {
+    background: white;
+    border: 1.5px solid var(--light);
+    border-radius: 100px;
+    padding: 6px 13px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .topic-chip:active, .topic-chip.selected {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .form-card {
+    background: white;
+    border-radius: 16px;
+    border: 1.5px solid var(--light);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    border: 1.5px solid var(--light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+
+  .field input:focus, .field textarea:focus { border-color: var(--ink); }
+  .field textarea { min-height: 100px; line-height: 1.5; }
+
+  .char-count { text-align: right; font-size: 11px; color: var(--mid); margin-top: 4px; }
+
+  .submit-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    width: 100%;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .submit-btn:active { transform: scale(0.97); opacity: 0.9; }
+  .submit-btn:disabled { background: var(--light); color: var(--mid); cursor: default; }
+
+  .success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-align: center;
+    padding: 40px 20px;
+    flex: 1;
+  }
+
+  .success.show { display: flex; }
+
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .success h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .success p { font-size: 14px; color: var(--mid); line-height: 1.6; }
+
+  .another-btn {
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    border-radius: 100px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  .error-msg {
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    display: none;
+  }
+
+  .bottom-safe { height: env(safe-area-inset-bottom, 16px); }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span class="brand">ISS — WFM</span>
+  <div class="live-pill">
+    <div class="live-dot"></div>
+    Live sessie
+  </div>
+</div>
+
+<div class="content" id="mainContent">
+  <div class="intro">
+    <h1>Jouw vraag<br>op het <em>grote scherm.</em></h1>
+    <p>Typ hieronder je vraag. Die verschijnt direct live voor iedereen zichtbaar.</p>
+  </div>
+
+  <div class="quick-topics">
+    <h3>Of kies een onderwerp</h3>
+    <div class="topics-grid">
+      <span class="topic-chip" onclick="selectTopic(this, 'Capaciteitsplanning')">Capaciteitsplanning</span>
+      <span class="topic-chip" onclick="selectTopic(this, 'Systemen & integratie')">Systemen & integratie</span>
+      <span class="topic-chip" onclick="selectTopic(this, 'Medewerkerervaring')">Medewerkerervaring</span>
+      <span class="topic-chip" onclick="selectTopic(this, 'Data & KPIs')">Data & KPI's</span>
+      <span class="topic-chip" onclick="selectTopic(this, 'Implementatie')">Implementatie</span>
+      <span class="topic-chip" onclick="selectTopic(this, 'Anders')">Anders</span>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="field">
+      <label>Je naam (optioneel)</label>
+      <input type="text" id="nameInput" placeholder="bijv. Sarah" maxlength="40">
+    </div>
+    <div class="field">
+      <label>Je vraag</label>
+      <textarea id="questionInput" placeholder="Typ hier je vraag…" maxlength="200" oninput="updateCount(this)"></textarea>
+      <div class="char-count"><span id="charCount">0</span>/200</div>
+    </div>
+    <div class="error-msg" id="errorMsg">Er ging iets mis. Probeer het opnieuw.</div>
+    <button class="submit-btn" id="submitBtn" onclick="submitQuestion()" disabled>
+      Verstuur vraag →
+    </button>
+  </div>
+</div>
+
+<div class="success" id="successState">
+  <div class="success-icon">✓</div>
+  <h2>Vraag verstuurd!</h2>
+  <p>Je vraag staat nu live op het scherm.<br>Kijk mee tijdens de presentatie.</p>
+  <button class="another-btn" onclick="resetForm()">Nog een vraag stellen</button>
+</div>
+
+<div class="bottom-safe"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getDatabase, ref, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDq0cXkAutSrNjBrfC_86HLpsX_H8ZRaJc",
+    authDomain: "managetomorrow-2cf72.firebaseapp.com",
+    projectId: "managetomorrow-2cf72",
+    storageBucket: "managetomorrow-2cf72.firebasestorage.app",
+    messagingSenderId: "285987060910",
+    appId: "1:285987060910:web:54b829f213f1ae35ff413f",
+    measurementId: "G-03M3Y19XG4",
+    databaseURL: "https://managetomorrow-2cf72-default-rtdb.europe-west1.firebasedatabase.app"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const questionInput = document.getElementById('questionInput');
+  const submitBtn = document.getElementById('submitBtn');
+
+  questionInput.addEventListener('input', () => {
+    submitBtn.disabled = questionInput.value.trim().length < 3;
+  });
+
+  window.updateCount = function(el) {
+    document.getElementById('charCount').textContent = el.value.length;
+  };
+
+  window.selectTopic = function(el, topic) {
+    document.querySelectorAll('.topic-chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    if (!questionInput.value) {
+      questionInput.value = topic + ': ';
+      window.updateCount(questionInput);
+      questionInput.focus();
+      submitBtn.disabled = false;
+    }
+  };
+
+  window.submitQuestion = async function() {
+    const name = document.getElementById('nameInput').value.trim() || 'Anoniem';
+    const question = questionInput.value.trim();
+    if (!question) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Versturen…';
+    document.getElementById('errorMsg').style.display = 'none';
+
+    try {
+      await push(ref(db, 'wfm-questions'), {
+        name,
+        question,
+        timestamp: serverTimestamp()
+      });
+
+      document.getElementById('mainContent').style.display = 'none';
+      document.getElementById('successState').classList.add('show');
+
+    } catch(e) {
+      console.error(e);
+      document.getElementById('errorMsg').style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Verstuur vraag →';
+    }
+  };
+
+  window.resetForm = function() {
+    document.getElementById('nameInput').value = '';
+    questionInput.value = '';
+    document.getElementById('charCount').textContent = '0';
+    document.querySelectorAll('.topic-chip').forEach(c => c.classList.remove('selected'));
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Verstuur vraag →';
+    document.getElementById('mainContent').style.display = 'flex';
+    document.getElementById('successState').classList.remove('show');
+  };
+</script>
+</body>
+</html>
