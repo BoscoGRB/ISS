@@ -448,7 +448,7 @@ const script = [
   {
     issyOpens: true,
     thinking: 0,
-    issy: "Hey Tim, sorry to interrupt — do you have a quick moment? 🎉\n\nI've just received a <span class='highlight'>Change of Scope notification</span> for your site — and I have some great news! Is now a good time?",
+    issy: "Hey Tim, sorry to interrupt — do you have a quick moment?\n\nI've just received a <span class='highlight'>Change of Scope notification</span> for your site from the sales team. Is now a good time?",
     choices: ["✅  Yes, now is great!", "❌  Not now"],
     selectedChoice: 0,
     actions: [
@@ -460,8 +460,15 @@ const script = [
   {
     user: "Yes, now is great!",
     skipType: true,
+    thinking: 900,
+    issy: "Fantastic — and <span class='highlight-green'>congratulations Tim!</span> 🎉",
+    actions: []
+  },
+  // STEP 2b — Tim reacts
+  {
+    user: "Thank you, we worked hard for it, so happy the signature is there!",
     thinking: 1000,
-    issy: "Fantastic — and <span class='highlight-green'>congratulations Tim!</span> 🎉\n\nYour site has been <span class='highlight'>approved for an expansion of our catering service</span>. This is great news for the whole team!\n\nI want to make sure everything is ready from day one — the right people, right place, right time. Just a couple of quick questions:\n\n<span class='highlight'>How many people work at this location?</span> And what are the operating hours?",
+    issy: "This is great news for the whole team!\n\nI want to make sure everything is ready from day one — the right people, right place, right time. Just a couple of quick questions:\n\n<span class='highlight'>Is it correct the expansion is catering?</span>\n\nAnd how many people work at this location? <span style='color:var(--muted);font-size:12.5px'>(I'll check whether the initial calculations are correct)</span>\n\nWhat are the operating hours?",
     actions: [
       { icon: "📋", tag: "cos",   sys: "CoS",   label: "Scope change details loaded · Catering service expansion" },
       { icon: "🏢", tag: "iss",   sys: "ISS",   label: "Site profile opened · NL-0042 · Amsterdam South" }
@@ -469,7 +476,7 @@ const script = [
   },
   // STEP 3 — Tim answers
   {
-    user: "240 people, Monday to Friday, 7am to 6pm.",
+    user: "Yes, catering. 240 people, Monday to Friday, 7am to 6pm.",
     thinking: 1400,
     issy: "Perfect — leave the rest to me! 🚀\n\nI'm running the calculations in <span class='highlight'>MCalc</span> now and processing the Change of Scope in our contract system.",
     actions: [
@@ -482,7 +489,7 @@ const script = [
   {
     user: "Great, what does MCalc say?",
     thinking: 1600,
-    issy: "MCalc is done. Based on <span class='highlight'>240 people on site</span>, the calculation recommends:\n\n<span class='highlight-green'>4 catering staff</span> to run this service smoothly within the contracted hours.\n\nNow let me build the schedule. I'm generating the roster based on your headcount, opening hours and occupancy patterns from similar locations.",
+    issy: "MCalc is done. Based on <span class='highlight'>240 people on site</span>, the calculation recommends:\n\n<span class='highlight-green'>4 catering staff</span> to run this service smoothly. This is in line with the proposed pricing. ✅\n\nNow let me build the schedule. I'm generating the roster based on your headcount, opening hours and occupancy patterns from similar locations.",
     actions: [
       { icon: "👥", tag: "mcalc", sys: "MCalc", label: "Staffing output: 4 FTE catering · 07:00–18:00" },
       { icon: "📊", tag: "mcalc", sys: "MCalc", label: "Benchmark applied · Similar restaurant locations NL" },
@@ -493,7 +500,7 @@ const script = [
   {
     user: "Sounds good. What does the roster look like?",
     thinking: 1800,
-    issy: "Here's the proposed weekly roster:\n\n<span class='highlight'>Mon – Wed:</span> 4 staff · Standard coverage\n<span class='highlight-amber'>Thu:</span> <span class='highlight-green'>5 staff</span> · Peak day based on data from similar locations\n<span class='highlight-amber'>Fri:</span> <span class='highlight-green'>2 staff</span> · Lighter footfall — scaled down accordingly\n\nShifts are spread <span class='highlight'>evenly across the week</span> and balanced per team member.\n\nThe rosters are now posted in <span class='highlight'>Rostar CAS</span> for your review. Once you give the green light, they'll be published automatically.",
+    issy: "Here's the proposed weekly roster:\n\n<span class='highlight'>Mon – Wed:</span> 4 staff · Standard coverage\n<span class='highlight-amber'>Thu:</span> <span class='highlight-green'>5 staff</span> · Peak day based on data from similar locations\n<span class='highlight-amber'>Fri:</span> <span class='highlight-green'>2 staff</span> · Lighter footfall — scaled down accordingly\n\nBased on similar sites, peak starts after 10:30 — I recommend a <span class='highlight'>staggered shift start</span>.\n\nShifts are spread <span class='highlight'>evenly across the week</span> and balanced per team member.\n\nThe rosters are now posted in <span class='highlight'>Rostar CAS</span> for your review. Once you give the green light, they'll be published automatically.",
     actions: [
       { icon: "📤", tag: "rostar", sys: "Rostar", label: "Rosters posted in Rostar CAS · Pending approval" },
       { icon: "📈", tag: "rostar", sys: "Rostar", label: "Peak pattern applied · Thu +1 FTE · Fri –2 FTE" },
@@ -504,10 +511,11 @@ const script = [
   {
     user: "Perfect. Do we have the right people available?",
     thinking: 1500,
-    issy: "I've already checked <span class='highlight'>AFAS</span> for available staff with a catering background and open hours this period.\n\nResult: <span class='highlight-green'>3 colleagues</span> with a catering background and available capacity have been identified and flagged as priority candidates for this roster.",
+    issy: "I've already checked <span class='highlight'>AFAS</span> for available staff with a catering background and open hours this period.\n\nResult: <span class='highlight-green'>3 colleagues</span> with a catering background and available capacity have been identified and flagged as priority candidates.\n\nI'll initiate <span class='highlight-amber'>recruitment for 1 additional role</span> in parallel to complete the team.",
     actions: [
-      { icon: "🔍", tag: "afas", sys: "AFAS", label: "Staff search executed · Catering background · Available hours" },
-      { icon: "✅", tag: "afas", sys: "AFAS", label: "3 candidates matched · Flagged for roster assignment" },
+      { icon: "🔍", tag: "afas",    sys: "AFAS",    label: "Staff search executed · Catering background · Available hours" },
+      { icon: "✅", tag: "afas",    sys: "AFAS",    label: "3 candidates matched · Flagged for roster assignment" },
+      { icon: "🧑‍💼", tag: "iss",  sys: "ISS",     label: "Recruitment initiated · 1 additional catering role" },
       { icon: "📧", tag: "outlook", sys: "Outlook", label: "Candidate notification queued · Pending roster approval" }
     ]
   },
@@ -515,7 +523,7 @@ const script = [
   {
     user: "Excellent. Let's approve and publish!",
     thinking: 1200,
-    issy: "✅ <span class='highlight-green'>All done, Tim!</span>\n\nYour new catering service is fully set up:\n\n• Contract calculated & scope updated in <span class='highlight'>MCalc</span>\n• Rosters published via <span class='highlight'>Rostar CAS</span>\n• 3 candidates notified via <span class='highlight'>AFAS + Outlook</span>\n\nThe team is ready for day one. I'll keep you posted as confirmations come in. 👋\n\n<span style='color:var(--muted);font-size:12px'>Smarter planning. Faster starts. That's Issy.</span>",
+    issy: "✅ <span class='highlight-green'>All done, Tim!</span>\n\nYour new catering service is fully set up:\n\n• Contract calculated & scope updated in <span class='highlight'>MCalc</span>\n• Rosters published via <span class='highlight'>Rostar CAS</span>\n• 3 candidates notified via <span class='highlight'>AFAS + Outlook</span>\n• Recruitment started for 1 additional role\n\nThe team is ready for day one. I'll keep you posted as confirmations come in. 👋\n\n<span style='color:var(--muted);font-size:12px'>Smarter planning. Faster starts. That's Issy.</span>",
     actions: [
       { icon: "🚀", tag: "rostar",  sys: "Rostar",  label: "Rosters published · Catering team notified" },
       { icon: "📧", tag: "outlook", sys: "Outlook",  label: "Confirmation sent · Tim Bakker + Account Manager" },
